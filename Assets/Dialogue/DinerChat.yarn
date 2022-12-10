@@ -1,0 +1,51 @@
+﻿title: Start
+tags:
+
+---
+<<declare $goodservice =0>>
+Player: I hope everyone enjoyed the meal...
+// pick a person to speak to
+-> Talk to Bob
+    <<jump Bob>>  
+
+-> Talk to Marty
+    <<jump Marty>>
+===
+title: Bob
+---
+   Bob: Hello, I'm Bob.
+   <<jump EndofMeal>>
+===
+title: Marty
+---
+   Marty: Hello, I'm Marty.
+---
+
+Marty: Hello, I'm Marty.
+Player: How was your meal, Marty?
+Marty: Do you think that was a good meal?!
+-> Yes
+   <<set $goodservice += 1>>
+   //demand a tip by putting out hand
+   Marty: You want a tip?!
+   -> Indeed, sir.
+        <<set $goodservice += 1>>
+   -> I suppose...maybe not?
+-> No
+// now go to ending
+<<jump EndofMeal>>  
+===
+title: EndofMeal
+---
+// Awkward situation in restaurant
+Marty: We are leaving.
+Player: Not without a tip!
+// Change the tip scenario
+<<if $goodservice < 2>>
+    Marty: Nobody tip him!
+    Bob: I concur, lets go.
+<<else>>
+    Marty: Ok, you are very pushy...but take this!
+    Player: Thank you.
+<<endif>>      
+===
